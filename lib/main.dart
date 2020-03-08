@@ -22,18 +22,23 @@ class TodoList extends StatefulWidget {
 
 class TodoListState extends State<TodoList> {
   List<String> _todoItems = [];
-
   void _addTodoItem(String task) {
     // Only add the task if the user actually entered something
     if(task.length > 0) {
       // Putting our code inside "setState" tells the app that our state has changed and
       // it will automatically re-render the list
-      setState(() => _todoItems.add(task));
+      setState(() => _todoItems.add(task));  
+      
+    
       
     }
   }
+
+  
   void _removeTodoItem(int index) {
     setState(() => _todoItems.removeAt(index));
+
+
   }
 
   void _promptRemoveTodoItem(int index) {
@@ -77,11 +82,19 @@ class TodoListState extends State<TodoList> {
 
   // Build a single todo item
   Widget _buildTodoItem(String todoText, int index) {
+   
     return new ListTile(
-      title: new Text(todoText, style: TextStyle(fontSize: 20)), 
-      trailing: Icon(Icons.check) ,
-      onTap: () => _promptRemoveTodoItem(index)
+      //trailing: Icon(Icons.check_box_outline_blank),
+      title: new Text(todoText, style: TextStyle(
+        fontSize: 20)),
+      trailing: Icon(Icons.delete_outline, color: Colors.black, size: 30.0),
+      leading: Icon(Icons.check_circle_outline, color: Colors.green, size: 30.0),
+      
+      onTap: () => _promptRemoveTodoItem(index),
+     
+     
     );
+    
   }
 
   @override
@@ -91,6 +104,7 @@ class TodoListState extends State<TodoList> {
         title: new Text('Tehtävälista', style: TextStyle(fontSize: 25)),
         centerTitle: true,
         backgroundColor: Colors.teal[400],
+        
       ),
       body: _buildTodoList(),
       floatingActionButton: new FloatingActionButton(
@@ -118,15 +132,18 @@ class TodoListState extends State<TodoList> {
             ),
             body: new TextField(
               autofocus: true,
+              
               onSubmitted: (val) {
                 _addTodoItem(val);
                 Navigator.pop(context); // Close the add todo screen
               },
               decoration: new InputDecoration(
+                fillColor: Colors.white,
                 hintText: 'Lisää tehtävä...',
                 contentPadding: const EdgeInsets.all(18.0)
                 
               ),
+              
             )
           );
         }
