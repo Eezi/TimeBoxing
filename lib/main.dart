@@ -22,6 +22,7 @@ class TodoList extends StatefulWidget {
 
 class TodoListState extends State<TodoList> {
   List<String> _todoItems = [];
+  bool pressed = false;
   void _addTodoItem(String task) {
     // Only add the task if the user actually entered something
     if(task.length > 0) {
@@ -37,9 +38,11 @@ class TodoListState extends State<TodoList> {
   
   void _removeTodoItem(int index) {
     setState(() => _todoItems.removeAt(index));
-
-
   }
+
+  void _addLinethrough(int index) {
+    setState(() => pressed = !pressed
+    );}
 
   void _promptRemoveTodoItem(int index) {
     showDialog(
@@ -80,19 +83,21 @@ class TodoListState extends State<TodoList> {
     );
   }
 
+  
+
   // Build a single todo item
   Widget _buildTodoItem(String todoText, int index) {
-   
+    
     return new ListTile(
       //trailing: Icon(Icons.check_box_outline_blank),
-      title: new Text(todoText, style: TextStyle(
-        fontSize: 20)),
+      title: new Text(todoText, style: pressed
+       ? TextStyle(fontSize: 20) 
+       : TextStyle(fontSize: 20, decoration: TextDecoration.lineThrough)),
       trailing: Icon(Icons.delete_outline, color: Colors.black, size: 30.0),
       leading: Icon(Icons.check_circle_outline, color: Colors.green, size: 30.0),
       
-      onTap: () => _promptRemoveTodoItem(index),
-     
-     
+      onLongPress: () => _promptRemoveTodoItem(index),
+     onTap: () => _addLinethrough(index)
     );
     
   }
