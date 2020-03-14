@@ -88,12 +88,12 @@ class TodoListState extends State<TodoList> {
     
     return new ListTile(
       //trailing: Icon(Icons.check_box_outline_blank),
-      title: new Text(todoText, style: pressed
-       ? TextStyle(fontSize: 21) 
-       : TextStyle(fontSize: 21, decoration: TextDecoration.lineThrough)),
-      trailing: new IconButton(icon: Icon(Icons.delete_outline, color: Colors.black87, size: 30.0),
+      title: new Text(todoText, style:TextStyle(fontSize: 21, 
+       decoration:
+        pressed ? TextDecoration.lineThrough : TextDecoration.none)),
+      trailing: new IconButton(icon: Icon(Icons.delete_outline, color: Colors.red, size: 30.0),
        onPressed: () => _promptRemoveTodoItem(index)),
-      leading: new IconButton(icon: Icon(Icons.check_circle, color: Colors.green, size: 30.0),
+      leading: new IconButton(icon: Icon(Icons.check_circle, color: Colors.green[500], size: 30.0),
        onPressed: () => _addLinethrough(index)),
     );
     
