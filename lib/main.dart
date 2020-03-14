@@ -7,6 +7,7 @@ class TodoApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Tehtävälista',
       home: new TodoList(),
       
@@ -73,9 +74,6 @@ class TodoListState extends State<TodoList> {
   Widget _buildTodoList() {
     return new ListView.builder(
       itemBuilder: (context, index) {
-        // itemBuilder will be automatically be called as many times as it takes for the
-        // list to fill up its available space, which is most likely more than the
-        // number of todo items we have. So, we need to check the index is OK.
         if(index < _todoItems.length) {
           return _buildTodoItem(_todoItems[index], index);
         }
@@ -91,13 +89,12 @@ class TodoListState extends State<TodoList> {
     return new ListTile(
       //trailing: Icon(Icons.check_box_outline_blank),
       title: new Text(todoText, style: pressed
-       ? TextStyle(fontSize: 20) 
-       : TextStyle(fontSize: 20, decoration: TextDecoration.lineThrough)),
-      trailing: Icon(Icons.delete_outline, color: Colors.black, size: 30.0),
-      leading: Icon(Icons.check_circle_outline, color: Colors.green, size: 30.0),
-      
-      onLongPress: () => _promptRemoveTodoItem(index),
-     onTap: () => _addLinethrough(index)
+       ? TextStyle(fontSize: 21) 
+       : TextStyle(fontSize: 21, decoration: TextDecoration.lineThrough)),
+      trailing: new IconButton(icon: Icon(Icons.delete_outline, color: Colors.black87, size: 30.0),
+       onPressed: () => _promptRemoveTodoItem(index)),
+      leading: new IconButton(icon: Icon(Icons.check_circle, color: Colors.green, size: 30.0),
+       onPressed: () => _addLinethrough(index)),
     );
     
   }
@@ -125,8 +122,6 @@ class TodoListState extends State<TodoList> {
   void _pushAddTodoScreen() {
    
     Navigator.of(context).push(
-      // MaterialPageRoute will automatically animate the screen entry, as well as adding
-      // a back button to close it
       new MaterialPageRoute(
         builder: (context) {
           return new Scaffold(
