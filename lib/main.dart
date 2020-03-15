@@ -105,7 +105,7 @@ class TodoListState extends State<TodoList> {
       appBar: new AppBar(
         title: new Text('Tehtävälista', style: TextStyle(fontSize: 25)),
         centerTitle: true,
-        backgroundColor: Colors.teal[400],
+        backgroundColor: Colors.black54,
         
       ),
       body: _buildTodoList(),
@@ -113,7 +113,7 @@ class TodoListState extends State<TodoList> {
         onPressed: _pushAddTodoScreen,
         tooltip: 'Add task',
         child: new Icon(Icons.add),
-        backgroundColor: Colors.teal[400]
+        backgroundColor: Colors.green[500]
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
@@ -128,7 +128,7 @@ class TodoListState extends State<TodoList> {
             appBar: new AppBar(
               title: new Text('Lisää uusi tehtävä', style: TextStyle(fontSize: 25)),
               centerTitle: true,
-              backgroundColor: Colors.teal[400]
+              backgroundColor: Colors.black54
             ),
             body: new TextField(
               autofocus: true,
