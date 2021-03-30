@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_todo/models/todo_model.dart';
 
 void main() => runApp(new TodoApp());
-
 
 class TodoApp extends StatelessWidget {
   @override
@@ -22,17 +22,12 @@ class TodoList extends StatefulWidget {
 }
 
 class TodoListState extends State<TodoList> {
-  List<String> _todoItems = [];
+  List<Task> _todoItems = [];
   bool pressed = false;
   void _addTodoItem(String task) {
-    // Only add the task if the user actually entered something
     if(task.length > 0) {
-      // Putting our code inside "setState" tells the app that our state has changed and
-      // it will automatically re-render the list
-      setState(() => _todoItems.add(task));  
-      
-    
-      
+        final newTask = Task(id: _todoItems.length, title: task);
+      setState(() => _todoItems.add(newTask));  
     }
   }
 
@@ -41,8 +36,8 @@ class TodoListState extends State<TodoList> {
     setState(() => _todoItems.removeAt(index));
   }
 
-  void _addLinethrough(int index) {
-    setState(() => pressed = !pressed
+  void _addLinethrough(Task task) {
+    setState(() => task.isComplete = !task.isComplete
     );}
 
   void _promptRemoveTodoItem(int index) {
@@ -84,17 +79,16 @@ class TodoListState extends State<TodoList> {
   
 
   // Build a single todo item
-  Widget _buildTodoItem(String todoText, int index) {
-    
-    return new ListTile(
-      //trailing: Icon(Icons.check_box_outline_blank),
-      title: new Text(todoText, style:TextStyle(fontSize: 21, 
+  Widget _buildTodoItem(Task task, int index) {
+     return ListTile(
+          //trailing: Icon(Icons.check_box_outline_blank),
+          title: Text(task.title, style:TextStyle(fontSize: 21, 
        decoration:
-        pressed ? TextDecoration.lineThrough : TextDecoration.none)),
+        task.isComplete ? TextDecoration.lineThrough : TextDecoration.none)),
       trailing: new IconButton(icon: Icon(Icons.delete_outline, color: Colors.red, size: 30.0),
        onPressed: () => _promptRemoveTodoItem(index)),
       leading: new IconButton(icon: Icon(Icons.check_circle, color: Colors.green[500], size: 30.0),
-       onPressed: () => _addLinethrough(index)),
+       onPressed: () => _addLinethrough(task)),
     );
     
   }
