@@ -1,16 +1,23 @@
 import 'package:meta/meta.dart';
-
 class Task {
   int id;
   final String title;
   final String description;
+  final DateTime createdAt;
+  final DateTime updatedAt;
   bool isComplete;
 
-  Task({@required this.id, @required this.title, this.description, this.isComplete = false});
+  Task(
+      {@required this.id,
+      @required this.title,
+      @required this.createdAt,
+      this.description,
+      this.updatedAt,
+      this.isComplete = false});
 
   factory Task.fromJson(Map<String, dynamic> json) {
     return Task(
-        id: json['id'], title: json['title'], description: json['description']);
+        id: json['id'], title: json['title'], updatedAt: json['updatedAt'], description: json['description'], isComplete: json['isComplete'], createdAt: json['createdAt']);
   }
   dynamic toJson() => {'id': id, 'title': title, 'description': description};
 }

@@ -26,7 +26,7 @@ class TodoListState extends State<TodoList> {
   bool pressed = false;
   void _addTodoItem(String task) {
     if(task.length > 0) {
-        final newTask = Task(id: _todoItems.length, title: task);
+        final newTask = Task(id: _todoItems.length, createdAt: DateTime.now(), title: task);
       setState(() => _todoItems.add(newTask));  
     }
   }
@@ -45,7 +45,7 @@ class TodoListState extends State<TodoList> {
       context: context,
       builder: (BuildContext context) {
         return new AlertDialog(
-          title: new Text('Poistetaanko "${_todoItems[index]}" tehtävä?'),
+          title: new Text('Poistetaanko "${_todoItems[index].title}" tehtävä?'),
           actions: <Widget>[
             new FlatButton(
               child: new Text('EI'),
@@ -114,7 +114,6 @@ class TodoListState extends State<TodoList> {
   }
 
   void _pushAddTodoScreen() {
-   
     Navigator.of(context).push(
       new MaterialPageRoute(
         builder: (context) {
