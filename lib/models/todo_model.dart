@@ -1,10 +1,10 @@
 import 'package:meta/meta.dart';
 class Task {
   int id;
-  final String title;
-  final String description;
+  String title;
+  String description;
   final DateTime createdAt;
-  final DateTime updatedAt;
+  DateTime updatedAt;
   bool isComplete;
 
   Task(
